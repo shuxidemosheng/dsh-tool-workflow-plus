@@ -1,0 +1,12 @@
+# 构建产物与本地产物
+lib/
+*.tgz
+node_modules/
+
+# 测试与工具缓存
+.vitest/
+*.tsbuildinfo
+.mimosa/
+
+# 环境杂项
+.DS_Store

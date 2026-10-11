@@ -1,0 +1,24 @@
+# 本 bundle 的 patch 行：向 profile 插入 tool-workflow-plus 插件。
+# 默认与官方 tool-workflow 共存（官方行不动，fork 检测到同名工具后自动让位，
+# 本插件退化为纯增量的 saved workflow 库）。
+#
+# 想让 fork 接管 `workflow` 工具名（drop-in 替换官方工具）的部署，请在
+# profile patch 里追加一行让官方行让位（对顶层 bundle 行有效；preset 组内
+# 声明的官方行 profile patch 够不着，那种部署保持共存即可）：
+#
+#   - id: tool-workflow
+#     disabled: true
+#
+# 详见 README 的 "drop-in 接管官方工具" 一节。
+- insert:
+    - id: tool-workflow-plus
+      name: dsh-tool-workflow-plus
+      config:
+        # fork 本体注册的模型工具名；与官方共存时本插件会自动让位。
+        toolName: workflow
+        # saved workflow 库五件套（workflow_save/list/get/delete/run_saved）。
+        savedTools: true
+        # run_in_background 开关（fork 与 workflow_run_saved 共用；需 ctx.jobs）。
+        enableRunInBackground: true
+        # 渲染结果上限字符数。
+        maxResultChars: 50000

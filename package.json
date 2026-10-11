@@ -1,0 +1,84 @@
+{
+  "name": "dsh-tool-workflow-plus",
+  "description": "Drop-in enhanced fork of the official @deepseek-ai/dsh-tool-workflow: adds a persisted saved-workflow library (workflow_save / workflow_list / workflow_get / workflow_delete / workflow_run_saved) over ctx.storageDomain, on top of a verbatim fork of the official workflow tool. 官方 workflow 工具的 drop-in 增强版：补上官方 README 里 deferred 的 saved workflows —— 模型可把编排脚本存库、检索、带新 args 重跑",
+  "keywords": [
+    "deepseek",
+    "deepseek-harness",
+    "dsh",
+    "plugin",
+    "workflow",
+    "workflow-tool",
+    "saved-workflows",
+    "orchestration",
+    "multi-agent",
+    "agent"
+  ],
+  "homepage": "https://github.com/shuxidemosheng/dsh-tool-workflow-plus#readme",
+  "bugs": {
+    "url": "https://github.com/shuxidemosheng/dsh-tool-workflow-plus/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shuxidemosheng/dsh-tool-workflow-plus.git"
+  },
+  "version": "0.1.0",
+  "license": "MIT",
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml"
+  ],
+  "engines": {
+    "node": ">=24",
+    "dsh": ">=0.2.0-rc.2"
+  },
+  "dsh": {
+    "manifestVersion": 1,
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && esbuild src/index.ts --bundle --format=esm --platform=node --target=node24 --outfile=lib/index.js --legal-comments=none --packages=external",
+    "test": "vitest run",
+    "smoke": "node scripts/smoke.mjs",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.4",
+    "@deepseek-ai/dsh-storage-domain": ">=0.2.0-rc.2",
+    "@deepseek-ai/dsh-tools": ">=0.2.0-rc.2",
+    "@deepseek-ai/dsh-workflow": ">=0.2.0-rc.2"
+  },
+  "dependencies": {
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "4.0.5-alpha.1",
+    "@deepseek-ai/dsh-agent": "0.2.1-alpha.2",
+    "@deepseek-ai/dsh-jobs": "0.2.1-alpha.2",
+    "@deepseek-ai/dsh-llm": "0.2.1-alpha.2",
+    "@deepseek-ai/dsh-session": "0.2.1-alpha.2",
+    "@deepseek-ai/dsh-storage-domain": "0.2.1-alpha.2",
+    "@deepseek-ai/dsh-system-prompt": "0.2.1-alpha.2",
+    "@deepseek-ai/dsh-tools": "0.2.1-alpha.2",
+    "@deepseek-ai/dsh-workflow": "0.2.1-alpha.2",
+    "@types/node": "^24.0.0",
+    "esbuild": "^0.28.2",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4",
+    "zod": "^4.4.3"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
+  }
+}
